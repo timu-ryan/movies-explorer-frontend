@@ -1,0 +1,153 @@
+.techs {
+  padding-top: 100px;
+  background: #272727;
+
+  display: grid;
+}
+
+.techs__header {
+  margin: 0 70px 90px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #DADADA;
+
+  color: #FFF;
+
+  font-family: Inter;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+}
+
+.techs__subtitle {
+  margin: 0 auto 26px;
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+
+.techs__text {
+  margin: 0 auto 100px;
+  max-width: 460px;
+  color: #FFF;
+
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.56px;
+}
+
+.techs__list {
+  padding: 0;
+  margin: 0 auto 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.techs__technology {
+  width: 90px;
+  height: 60px;
+  margin: 0 10px 0 0;
+
+  border-radius: 10px;
+  background: #303030;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.56px;
+}
+
+.techs__technology:last-child {
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding-top: 91px;
+  }
+  .techs__header {
+    margin: 0 50px 80px;
+  }
+  .techs__subtitle {
+    margin: 0 auto 21px;
+  }
+  .techs__text {
+    margin: 0 auto 80px;
+  }
+  .techs__list {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+  }
+  .techs__technology {
+    width: 84px;
+    height: 57px;
+    margin: 0 10px 0 0;
+  
+    border-radius: 10px;
+    background: #303030;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    font-size: 12px;
+    letter-spacing: -0.48px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .techs__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .techs {
+    padding-top: 25px;
+  }
+  .techs__header {
+    margin: 0 18px 56px;
+  
+    color: #FFF;
+  
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+  .techs__subtitle {
+    margin: 0 auto 12px;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+  .techs__text {
+    margin: 0 auto 50px;
+    max-width: 292px;
+
+    font-size: 11px;
+    line-height: 16px; 
+    letter-spacing: -0.44px;
+  }
+  .techs__technology {
+    margin: 0;
+  }
+}
