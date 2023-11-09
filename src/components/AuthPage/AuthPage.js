@@ -13,31 +13,31 @@ const AuthPage = ({texts, children, handleSubmitClick, errorClass}) => {
   } = texts;
   
   return (
-    <div className='auth-page'>
+    <main className='auth-page'>
       <NavLink to="/" className='auth-page__logo'>
         <img alt='логотип' src={logoPath} />
       </NavLink>
 
-      <h2 className='auth-page__title'>{greeting}</h2>
+      <h1 className='auth-page__title'>{greeting}</h1>
       <form 
-      action="" 
-      onSubmit={handleSubmitClick} 
-      name="search-form" 
-      noValidate 
-      className="auth-page__form"
-    >
-        {children}
-        <span className={errorClass}>Что-то пошло не так...</span>
-        <button 
-          type="submit" 
-          className="auth-page__button"
-        >{buttonText}</button>
-    </form>
-    <div className='auth-page__suggestion'>
-      <p className='auth-page__question'>{suggestionText}</p>
-      <NavLink to={linkTo} className='auth-page__link' >{linkText}</NavLink>
-    </div>
-    </div>
+        action="/" 
+        onSubmit={handleSubmitClick} 
+        name="search-form" 
+        noValidate 
+        className="auth-page__form"
+      >
+          {children}
+          <span className={errorClass}>Что-то пошло не так...</span>
+          <button 
+            type="submit" 
+            className="auth-page__button"
+          >{buttonText}</button>
+      </form>
+      <div className='auth-page__suggestion'>
+        <p className='auth-page__question'>{suggestionText}</p>
+        <NavLink to={linkTo} className='auth-page__link' >{linkText}</NavLink>
+      </div>
+    </main>
   )
 }
 

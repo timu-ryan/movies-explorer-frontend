@@ -10,20 +10,27 @@ const Portfolio = () => {
   return (
     <div className='portfolio'>
       <h3 className='portfolio__header'>Портфолио</h3>
-      {
-        Object.keys(links).map(key => (
-          <a 
-            href={links[key]} 
-            target="_blank" 
-            rel="noreferrer"
-            key={key}
-            className='portfolio__link'
-          >
-            {key}
-            <span className='portfolio__link-arrow'>↗</span>
-          </a>
-        ))
-      }
+      <ul className='portfolio__list'>
+        {
+          Object.keys(links).map(key => (
+            <li 
+              className='portfolio__list-item'
+              key={key}
+            >
+              <a 
+                href={links[key]} 
+                target="_blank" 
+                rel="noreferrer"
+                className='portfolio__link'
+              >
+                {key}
+                <span className='portfolio__link-arrow'>↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      
     </div>
   );
 }

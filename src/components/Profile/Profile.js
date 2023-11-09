@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './Profile.css'
+import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ handleSubmit }) => {
   const [nameValue, setNameValue] = useState('Тимур');
   const [emailValue, setEmailValue] = useState('pochta@yandex.ru');
+
+  const navigate = useNavigate();
 
   function handleNameChange(e) {
     setNameValue(e.target.value);
@@ -18,29 +21,32 @@ const Profile = ({ handleSubmit }) => {
   }
 
   function handleExitClick(e) {
-    e.preventDefault();
+    navigate('/');
   }
 
   return (
-    <div className='profile'>
-      <h2 className='profile__title'>Привет, {nameValue}!</h2>
+    <section className='profile'>
+      <h1 className='profile__title'>Привет, {nameValue}!</h1>
       <form 
-      action="" 
-      onSubmit={handleSubmit} 
-      name="search-form" 
-      noValidate 
-      className="profile__form"
-    >
+        action="/" 
+        onSubmit={handleSubmit} 
+        name="search-form" 
+        noValidate 
+        className="profile__form"
+      >
         <label className="profile__field">
           <span className='profile__input-description'>Имя</span>
           <input
             id="name-input"
+            placeholder='имя'
             type="text"
             name="search-input"
             required
             className="profile__input"
             onChange={handleNameChange}
             value={nameValue}
+            minLength='4'
+            maxLength='30'
           />
           <span className="profile-input-error"></span>
         </label>
@@ -48,6 +54,7 @@ const Profile = ({ handleSubmit }) => {
           <span className='profile__input-description'>E-mail</span>
           <input
             id="email-input"
+            placeholder='email'
             type="email"
             name="search-input"
             required
@@ -63,12 +70,12 @@ const Profile = ({ handleSubmit }) => {
           onClick={handleEditClick}
         >Редактировать</button>
         <button 
-          type="submit" 
+          type="button" 
           className="profile__button profile__button_type_exit"
           onClick={handleExitClick}
         >Выйти из аккаунта</button>
     </form>
-    </div>
+    </section>
   )
 }
 

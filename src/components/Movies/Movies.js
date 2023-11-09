@@ -14,7 +14,7 @@ const Movies = () => {
     <div className='movies'>
       <SearchForm handleSubmit={handleSubmit}/>
       <MoviesCardList films={films} isSavedCards={false} />
-      <button className='movies__button'>Ещё</button>
+      <button type="button" className='movies__button'>Ещё</button>
     </div>
   )
 }

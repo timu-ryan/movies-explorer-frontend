@@ -9,13 +9,13 @@ import Portfolio from '../Portfolio/Portfolio'
 
 const Main = () => {
   return (
-    <div>
+    <>
       <Promo />
       {/* <NavTab /> */}
       <AboutProject />
       <Techs />
       <AboutMe />
-    </div>
+    </>
   )
 }
 

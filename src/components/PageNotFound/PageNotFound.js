@@ -4,11 +4,11 @@ import './PageNotFound.css'
 
 const PageNotFound = () => {
   return (
-    <div className='page-not-found'>
-      <h2 className='page-not-found__number'>404</h2>
+    <main className='page-not-found'>
+      <h1 className='page-not-found__number'>404</h1>
       <p className='page-not-found__text'>Страница не найдена</p>
       <Link to='/' className='page-not-found__link'>Назад</Link>
-    </div>
+    </main>
   )
 }
 

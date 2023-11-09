@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 const MoviesCardList = ({ films, isSavedCards }) => {
   return (
     <div className='card-container'>
-      <div className='card-container__list'>
+      <ul className='card-container__list'>
         {films.map(film => (
           <MoviesCard 
             key={film.title}
@@ -15,7 +15,7 @@ const MoviesCardList = ({ films, isSavedCards }) => {
             isSavedCards={isSavedCards}
           />
         ))}
-      </div>
+      </ul>
       {/* <button className='card-container__button'>Ещё</button> */}
     </div>
   )

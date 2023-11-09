@@ -13,7 +13,7 @@ const Navigation = ({ isOpen, handleCloseClick }) => {
   }
 
   return (
-    <div className={
+    <section className={
       isOpen
        ? 'navigation'
        : 'navigation navigation_invisible'
@@ -25,14 +25,15 @@ const Navigation = ({ isOpen, handleCloseClick }) => {
         <NavLink to="/movies" className={({ isActive }) => checkIsActive(isActive)}>Фильмы</NavLink>
         <NavLink to="/saved-movies" className={({ isActive }) => checkIsActive(isActive)}>Сохранённые фильмы</NavLink>
        
-          <NavLink to="/profile" className="navigation__account-button">Аккаунт</NavLink>
+        <NavLink to="/profile" className="navigation__account-button">Аккаунт</NavLink>
           
       </nav>
       <button 
+        type='button'
         onClick={handleCloseClick}
         className='navigation__close-button'
       ></button>
-    </div>
+    </section>
   )
 }
 

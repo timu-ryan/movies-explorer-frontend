@@ -5,7 +5,7 @@ import './AboutMe.css'
 
 const AboutMe = () => {
   return (
-    <div id='about-me' className='about-me'>
+    <section id='about-me' className='about-me'>
       <h2 className='about-me__header'>Студент</h2>
       <div className='about-me__content'>
         <div>
@@ -22,10 +22,10 @@ const AboutMe = () => {
             className='about-me__link'
           >Github</a>
         </div>
-        <img alt='моя фотография' src={portfolioImagePath} className='about-me__image' />
+        <img alt='деловая фотография для портфолио ' src={portfolioImagePath} className='about-me__image' />
       </div>
       <Portfolio />
-    </div>
+    </section>
   )
 }
 

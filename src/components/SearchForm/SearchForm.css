@@ -25,11 +25,15 @@
   padding: 0 0 0 20px;
 
   color: #FFF;
-  font-family: Inter;
+  font-family: Inter, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.search-form__input:focus {
+  outline: solid grey;
 }
 
 .search-form__button {
@@ -39,6 +43,11 @@
   background-color: #202020;
   border: none;
   background-image: url(../../images/find-3.svg);
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  opacity: .8;
 }
 
 /* Обнуление стилей чекбокса */
@@ -61,7 +70,12 @@
 .search-form__checkbox + div {
   width: 36px;
   height: 20px;
+  cursor: pointer;
 } 
+
+.search-form__checkbox + div:hover {
+  opacity: .8;
+}
 
 .search-form__field-checkbox {
   padding: 0 0 40px;
@@ -74,11 +88,12 @@
 .search-form__checkbox-description {
   margin: 0 0 0 12px;
   color: #FFF;
-  font-family: Inter;
+  font-family: Inter, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px; 
+  cursor: pointer;
 }
 
 @media screen and (max-width: 769px) {

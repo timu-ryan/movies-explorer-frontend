@@ -10,7 +10,7 @@ const Header = ({ handleNavigationClick }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
-    <div className='header'>
+    <header className='header'>
       <NavLink to="/" className='header__logo'>
         <img alt='логотип' src={logoPath} />
       </NavLink>
@@ -41,6 +41,7 @@ const Header = ({ handleNavigationClick }) => {
       {
         isLoggedIn && (
           <button 
+            type='button'
             onClick={handleNavigationClick}
             className='header__navigation-button'
           ></button>
@@ -48,7 +49,7 @@ const Header = ({ handleNavigationClick }) => {
       }
       
 
-    </div>
+    </header>
   )
 }
 

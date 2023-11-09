@@ -34,11 +34,14 @@ const AuthInput = ({
         <input
           id={`${name}-input`}
           type={type}
+          placeholder={title}
           name={`auth-${name}-input`}
           value={value}
           onChange={handleChange}
           required
           className="auth-input__input"
+          minLength={min}
+          maxLength={max}
         />
         <span className="auth-input-input-error"></span>
       </label>

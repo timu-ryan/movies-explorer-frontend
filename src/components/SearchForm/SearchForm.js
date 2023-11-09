@@ -4,7 +4,7 @@ import './SearchForm.css'
 const SearchForm = ({ handleSubmit }) => {
   return (
     <form 
-      action="" 
+      action="/" 
       onSubmit={handleSubmit} 
       name="search-form" 
       noValidate 
@@ -26,7 +26,7 @@ const SearchForm = ({ handleSubmit }) => {
       </div>
       <label className='search-form__field-checkbox'>
         <input 
-          id="search-input"
+          id="search-input-checkbox"
           type='checkbox' 
           name="search-checkbox"
           required

@@ -32,11 +32,13 @@ function App() {
             <Header 
               handleNavigationClick={handleOpenNavigationClick}
             />
-            <Navigation 
-              isOpen={isNavigationOpen}
-              handleCloseClick={handleCloseNavigationClick}
-            />
-            <Main />
+            <main>
+              <Navigation 
+                isOpen={isNavigationOpen}
+                handleCloseClick={handleCloseNavigationClick}
+              />
+              <Main />
+            </main>
             <Footer />
           </>
         } />
@@ -45,11 +47,13 @@ function App() {
             <Header 
               handleNavigationClick={handleOpenNavigationClick}
             />
-            <Navigation 
-              isOpen={isNavigationOpen}
-              handleCloseClick={handleCloseNavigationClick}
-            />
-            <Movies />
+            <main>
+              <Navigation 
+                isOpen={isNavigationOpen}
+                handleCloseClick={handleCloseNavigationClick}
+              />
+              <Movies />
+            </main>
             <Footer />
           </>
         } />
@@ -58,11 +62,13 @@ function App() {
             <Header 
               handleNavigationClick={handleOpenNavigationClick}
             />
-            <Navigation 
-              isOpen={isNavigationOpen}
-              handleCloseClick={handleCloseNavigationClick}
-            />
-            <SavedMovies />
+            <main>
+              <Navigation 
+                isOpen={isNavigationOpen}
+                handleCloseClick={handleCloseNavigationClick}
+              />
+              <SavedMovies />
+            </main>
             <Footer />
           </>
         } />
@@ -71,28 +77,19 @@ function App() {
             <Header 
               handleNavigationClick={handleOpenNavigationClick}
             />
-            <Navigation 
-              isOpen={isNavigationOpen}
-              handleCloseClick={handleCloseNavigationClick}
-            />
-            <Profile />
+            <main>
+              <Navigation 
+                isOpen={isNavigationOpen}
+                handleCloseClick={handleCloseNavigationClick}
+              />
+              <Profile />
+            </main>
+            
           </>
         } />
-        <Route path="/signin" element={
-          <>
-            <Login />
-          </>
-        } />
-        <Route path="/signup" element={
-          <>
-            <Register />
-          </>
-        } />
-        <Route path="*" element={
-          <>
-            <PageNotFound />
-          </>
-        } />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
