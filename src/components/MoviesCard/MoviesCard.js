@@ -6,7 +6,7 @@ const MoviesCard = ({title, duration, imagePath, isSavedCards }) => {
     <li className='card '>
       <img alt={title} src={imagePath} className='card__image'/>
       <div className='card__text'>
-        <h3 className='card__title'>{title}</h3>
+        <h2 className='card__title'>{title}</h2>
         <p className='card__duration'>{duration}</p>
       </div>
       {

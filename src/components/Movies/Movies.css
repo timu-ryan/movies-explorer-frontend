@@ -21,6 +21,7 @@
 }
 
 .movies__button:hover {
+  cursor: pointer;
   opacity: .8;
 }
 

@@ -16,6 +16,10 @@
   /* left: 70px; */
 }
 
+.header__logo:hover {
+  opacity: .7;
+} 
+
 .header__navigation {
   /* margin: 0 0 0 64px; */
 }
@@ -75,8 +79,8 @@
   align-items: center;
   justify-content: center;
 
-  position: absolute;
-  right: 70px;
+  /* position: absolute;
+  right: 70px; */
 }
 
 .header__sign-button {

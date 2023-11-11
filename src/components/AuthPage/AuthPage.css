@@ -8,6 +8,10 @@
   width: 38px;
 }
 
+.auth-page__logo:hover {
+  opacity: .7;
+}
+
 .auth-page__title {
   margin: 38px 0 40px;
 
