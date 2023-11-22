@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logoPath from '../../images/logo.svg';
 import './AuthPage.css';

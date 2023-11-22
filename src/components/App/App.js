@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -12,10 +12,20 @@ import Navigation from '../Navigation/Navigation';
 import './App.css';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { AppContext } from '../../contexts/AppContext';
+import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
+import { checkToken } from '../../utils/MainApi';
 
 function App() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+  });
+
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   function handleCloseNavigationClick() {
     setIsNavigationOpen(false);
@@ -24,7 +34,27 @@ function App() {
     setIsNavigationOpen(true);
   }
 
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if(jwt) {
+      checkToken(jwt)
+        .then(res => {
+          if (res) {
+            const userData = { name: res.name, email: res.email };
+            setIsLoggedIn(true);
+            setUserData(userData);
+            navigate('/', { replace: true });
+          }
+        })
+    }
+  }
+
+  useEffect(() => {
+    tokenCheck();
+  }, [isLoggedIn])
+
   return (
+    <AppContext.Provider value={{ isLoggedIn, userData, setIsLoggedIn, setUserData }}>
     <div className="App">
       <Routes>
         <Route path="/" element={
@@ -52,7 +82,8 @@ function App() {
                 isOpen={isNavigationOpen}
                 handleCloseClick={handleCloseNavigationClick}
               />
-              <Movies />
+              {/* <Movies /> */}
+              <ProtectedRouteElement element={Movies} />
             </main>
             <Footer />
           </>
@@ -67,7 +98,8 @@ function App() {
                 isOpen={isNavigationOpen}
                 handleCloseClick={handleCloseNavigationClick}
               />
-              <SavedMovies />
+              <ProtectedRouteElement element={SavedMovies} />
+              {/* <SavedMovies /> */}
             </main>
             <Footer />
           </>
@@ -82,7 +114,8 @@ function App() {
                 isOpen={isNavigationOpen}
                 handleCloseClick={handleCloseNavigationClick}
               />
-              <Profile />
+              <ProtectedRouteElement element={Profile} />
+              {/* <Profile /> */}
             </main>
             
           </>
@@ -92,6 +125,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
+    </AppContext.Provider>
   );
 }
 

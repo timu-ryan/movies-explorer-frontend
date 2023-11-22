@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './AuthInput.css'
 
 const AuthInput = ({ 
+  value,
+  onChange,
   name, 
   title, 
   type,
@@ -10,7 +12,7 @@ const AuthInput = ({
   max,
  }) => {
   
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
 
   function validate(value, min, max) {
     if (value < min) {
@@ -22,11 +24,11 @@ const AuthInput = ({
     }
   }
 
-  function handleChange(e) {
-    setValue(e.target.value);
-    // console.log(value)
-    validate(value, min, max);
-  }
+  // function handleChange(e) {
+  //   setValue(e.target.value);
+  //   // console.log(value)
+  //   validate(value, min, max);
+  // }
 
   return (
       <label className="auth-input">
@@ -35,9 +37,10 @@ const AuthInput = ({
           id={`${name}-input`}
           type={type}
           placeholder={title}
-          name={`auth-${name}-input`}
+          // name={`auth-${name}-input`}
+          name={name}
           value={value}
-          onChange={handleChange}
+          onChange={onChange}
           required
           className="auth-input__input"
           minLength={min}

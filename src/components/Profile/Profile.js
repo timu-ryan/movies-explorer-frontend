@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Profile.css'
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../contexts/AppContext';
+import { updateProfile } from '../../utils/MainApi';
 
-const Profile = ({ handleSubmit }) => {
-  const [nameValue, setNameValue] = useState('Тимур');
-  const [emailValue, setEmailValue] = useState('pochta@yandex.ru');
+const Profile = () => {
+
+  const context = useContext(AppContext);
+  // const [nameValue, setNameValue] = useState('Тимур');
+  // const [emailValue, setEmailValue] = useState('pochta@yandex.ru');
+  const [formValue, setFormValue] = useState(context.userData);
 
   const navigate = useNavigate();
+  // function handleNameChange(e) {
+  //   setNameValue(e.target.value);
+  // }
 
-  function handleNameChange(e) {
-    setNameValue(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    })
   }
 
-  function handleEmailChange(e) {
-    setEmailValue(e.target.value)
-  }
+  // function handleEmailChange(e) {
+  //   setEmailValue(e.target.value)
+  // }
 
   function handleEditClick(e) {
     e.preventDefault();
+    if(true) {       /// TODO: validate form
+      const { name, email } = formValue;
+      updateProfile(name, email)
+        .then(res => context.setUserData({ name: res.name, email: res.email }))
+        .catch(err => console.log(err))
+    }
   }
 
-  function handleExitClick(e) {
+  function handleExitClick() {
+    localStorage.removeItem('jwt');
+    context.setIsLoggedIn(false);
+
     navigate('/');
   }
 
   return (
     <section className='profile'>
-      <h1 className='profile__title'>Привет, {nameValue}!</h1>
+      <h1 className='profile__title'>Привет, {context.userData.name}!</h1>
       <form 
         action="/" 
-        onSubmit={handleSubmit} 
+        onSubmit={handleEditClick} 
         name="search-form" 
         noValidate 
         className="profile__form"
@@ -37,14 +58,14 @@ const Profile = ({ handleSubmit }) => {
         <label className="profile__field">
           <span className='profile__input-description'>Имя</span>
           <input
+            value={formValue.name}
+            onChange={handleChange}
             id="name-input"
             placeholder='имя'
             type="text"
-            name="search-input"
+            name="name"
             required
             className="profile__input"
-            onChange={handleNameChange}
-            value={nameValue}
             minLength='4'
             maxLength='30'
           />
@@ -53,21 +74,21 @@ const Profile = ({ handleSubmit }) => {
         <label className="profile__field">
           <span className='profile__input-description'>E-mail</span>
           <input
+            value={formValue.email}
+            onChange={handleChange}
             id="email-input"
             placeholder='email'
             type="email"
-            name="search-input"
+            name="email"
             required
             className="profile__input"
-            onChange={handleEmailChange}
-            value={emailValue}
           />
           <span className="profile-input-error"></span>
         </label>
         <button 
           type="submit"
           className="profile__button"
-          onClick={handleEditClick}
+          // onClick={handleEditClick}
         >Редактировать</button>
         <button 
           type="button" 

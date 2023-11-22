@@ -3,15 +3,21 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = ({ films, isSavedCards }) => {
+
+  const normalizeDuration = duration => !Math.floor(duration/60) 
+    ? `${duration%60}м` 
+    : `${Math.floor(duration/60)}ч ${duration%60}м`
+  
+  normalizeDuration(46)
   return (
     <div className='card-container'>
       <ul className='card-container__list'>
         {films.map(film => (
           <MoviesCard 
-            key={film.title}
-            title={film.title} 
-            duration={film.duration} 
-            imagePath={film.imagePath} 
+            key={film.nameRU}
+            title={film.nameRU} 
+            duration={normalizeDuration(film.duration)} 
+            imagePath={`https://api.nomoreparties.co/${film.image.url}`} 
             isSavedCards={isSavedCards}
           />
         ))}

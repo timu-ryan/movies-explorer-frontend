@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import './Navigation.css'
 
 const Navigation = ({ isOpen, handleCloseClick }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   function checkIsActive(isActive) {
     if (isActive) {

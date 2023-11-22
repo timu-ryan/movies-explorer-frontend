@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthPage from '../AuthPage/AuthPage';
+import { register } from '../../utils/MainApi';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ handleSubmit }) => {
   const pageTexts = {
@@ -11,6 +13,8 @@ const Register = ({ handleSubmit }) => {
     linkTo: '/signin'
   }
 
+  const navigate = useNavigate();
+
   const [isNameValid, setIsNameValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -19,13 +23,33 @@ const Register = ({ handleSubmit }) => {
 
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
 
+  const [formValue, setFormValue] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    })
+  }
+
   function handleSubmitClick(e) {
-    setIsValid(isNameValid && isEmailValid && isPasswordValid) //если одно ложное вернет ложное
     e.preventDefault();
-    if(isValid) {
-      setErrorClass('auth-page__error-message')
-    } else {
-      setErrorClass('auth-page__error-message auth-page__error-message_active');  
+    // setIsValid(isNameValid && isEmailValid && isPasswordValid) //если одно ложное вернет ложное
+    // if(isValid) {
+    //   setErrorClass('auth-page__error-message')
+    // } else {
+    //   setErrorClass('auth-page__error-message auth-page__error-message_active');  
+    // }
+    if (true) {    /// TODO: check is input valid  
+      const { name, email, password } = formValue;
+      register(name, email, password)
+        .then(res => navigate('/signin', { replace: true }))
+        .catch(e => console.log(e))
     }
   }
 
@@ -36,6 +60,8 @@ const Register = ({ handleSubmit }) => {
       errorClass={errorClass}
     >
       <AuthInput 
+        value={formValue.name}
+        onChange={handleChange}
         name='name' 
         title='Имя' 
         type='text'
@@ -44,6 +70,8 @@ const Register = ({ handleSubmit }) => {
         max={24} 
       />
       <AuthInput 
+        value={formValue.email}
+        onChange={handleChange}
         name='email' 
         title='E-mail' 
         type='email'
@@ -52,6 +80,8 @@ const Register = ({ handleSubmit }) => {
         max={24} 
       />
       <AuthInput 
+        value={formValue.password}
+        onChange={handleChange}
         name='password' 
         title='Пароль' 
         type='password' 

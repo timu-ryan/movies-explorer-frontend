@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './Header.css'
 
 import logoPath from '../../images/logo.svg';
+import { AppContext } from '../../contexts/AppContext';
 // import Navigation from '../Navigation/Navigation';
 
 const Header = ({ handleNavigationClick }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+  const context = useContext(AppContext);
+  
   return (
     <header className='header'>
       <NavLink to="/" className='header__logo'>
         <img alt='логотип' src={logoPath} />
       </NavLink>
 
-      {/* <button 
-        style={{position: 'absolute'}}
-        onClick={() => setIsLoggedIn(!isLoggedIn)}  
-      >sth</button> */}
-
-      {isLoggedIn && (
+      {context.isLoggedIn  && (
         <div className='header__navigation'>
           <NavLink to="/movies" className="header__navigation-link">Фильмы</NavLink>
           <NavLink to="/saved-movies" className="header__navigation-link">Сохранённые фильмы</NavLink>
@@ -28,7 +24,7 @@ const Header = ({ handleNavigationClick }) => {
       )}
       
       {
-        isLoggedIn 
+        context.isLoggedIn 
         ? <NavLink to="/profile" className="header__account-button">Аккаунт</NavLink>
         : (
           <div className='header__sign-buttons'>
@@ -39,7 +35,7 @@ const Header = ({ handleNavigationClick }) => {
       }
 
       {
-        isLoggedIn && (
+        context.isLoggedIn  && (
           <button 
             type='button'
             onClick={handleNavigationClick}
