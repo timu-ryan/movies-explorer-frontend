@@ -1,7 +1,8 @@
 import React from 'react';
 import './SearchForm.css'
 
-const SearchForm = ({ handleSubmit }) => {
+const SearchForm = ({ handleSubmit, inputValue, onInputChange, isShort, onCheckboxChange }) => {
+  console.log(isShort)
   return (
     <form 
       action="/" 
@@ -17,6 +18,8 @@ const SearchForm = ({ handleSubmit }) => {
             type="text"
             name="search-input"
             placeholder="Фильм"
+            value={inputValue}
+            onChange={onInputChange}
             required
             className="search-form__input"
           />
@@ -29,6 +32,8 @@ const SearchForm = ({ handleSubmit }) => {
           id="search-input-checkbox"
           type='checkbox' 
           name="search-checkbox"
+          value={isShort}
+          onChange={onCheckboxChange}
           required
           className="search-form__checkbox"
         />
@@ -39,4 +44,4 @@ const SearchForm = ({ handleSubmit }) => {
   )
 }
 
-export default SearchForm
+export default SearchForm;

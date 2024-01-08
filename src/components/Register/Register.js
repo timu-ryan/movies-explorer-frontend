@@ -44,7 +44,7 @@ const Register = ({ handleSubmit }) => {
     //   setErrorClass('auth-page__error-message')
     // } else {
     //   setErrorClass('auth-page__error-message auth-page__error-message_active');  
-    // }
+    // } 
     if (true) {    /// TODO: check is input valid  
       const { name, email, password } = formValue;
       register(name, email, password)

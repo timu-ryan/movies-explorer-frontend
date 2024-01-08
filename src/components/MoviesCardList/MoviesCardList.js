@@ -8,16 +8,18 @@ const MoviesCardList = ({ films, isSavedCards }) => {
     ? `${duration%60}м` 
     : `${Math.floor(duration/60)}ч ${duration%60}м`
   
-  normalizeDuration(46)
+    
   return (
     <div className='card-container'>
       <ul className='card-container__list'>
+        {/* {console.log(films)} */}
         {films.map(film => (
           <MoviesCard 
+            movie={film}
             key={film.nameRU}
             title={film.nameRU} 
             duration={normalizeDuration(film.duration)} 
-            imagePath={`https://api.nomoreparties.co/${film.image.url}`} 
+            imagePath={!isSavedCards ? `https://api.nomoreparties.co/${film.image.url}` : film.image} 
             isSavedCards={isSavedCards}
           />
         ))}

@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 
 import { AppContext } from '../../contexts/AppContext';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { checkToken } from '../../utils/MainApi';
+import { checkToken, getSavedMovies } from '../../utils/MainApi';
 
 function App() {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ function App() {
     name: '',
     email: '',
   });
+  const [savedMovieList, setSavedMovieList] = useState([]);
 
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
   function handleCloseNavigationClick() {
@@ -43,7 +44,7 @@ function App() {
             const userData = { name: res.name, email: res.email };
             setIsLoggedIn(true);
             setUserData(userData);
-            navigate('/', { replace: true });
+            navigate('/', { replace: true }); //FIXME: i don't remember hwy i should redirect the user here
           }
         })
     }
@@ -51,10 +52,23 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
+    if(isLoggedIn) {
+      getSavedMovies()
+      .then(movies => {
+        setSavedMovieList(movies)
+      })
+    }
   }, [isLoggedIn])
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, userData, setIsLoggedIn, setUserData }}>
+    <AppContext.Provider value={{ 
+      isLoggedIn, 
+      userData, 
+      savedMovieList,
+      setIsLoggedIn, 
+      setUserData,
+      setSavedMovieList,
+    }}>
     <div className="App">
       <Routes>
         <Route path="/" element={

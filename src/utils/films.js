@@ -13,64 +13,88 @@ import filmPath12 from '../images/film_12.png';
 
 const films = [
   {
-    title: '33 слова о дизайне',
+    nameRU: '33 слова о дизайне',
     duration: '1ч 17м',
-    imagePath: filmPath1,
+    image: {
+      url: filmPath1,
+    },
   },
   {
-    title: 'Киноальманах «100 лет дизайна»',
+    nameRU: 'Киноальманах «100 лет дизайна»',
     duration: '1ч 17м',
-    imagePath: filmPath2,
+    image: {
+      url: filmPath2,
+    },
   },
   {
-    title: 'В погоне за Бенкси',
+    nameRU: 'В погоне за Бенкси',
     duration: '1ч 17м',
-    imagePath: filmPath3,
+    image: {
+      url: filmPath3,
+    },
   },
   {
-    title: 'Баския: Взрыв реальности',
+    nameRU: 'Баския: Взрыв реальности',
     duration: '1ч 17м',
-    imagePath: filmPath4,
+    image: {
+      url: filmPath4,
+    },
   },
   {
-    title: 'Бег это свобода',
+    nameRU: 'Бег это свобода',
     duration: '1ч 17м',
-    imagePath: filmPath5,
+    image: {
+      url: filmPath5,
+    },
   },
   {
-    title: 'Книготорговцы',
+    nameRU: 'Книготорговцы',
     duration: '1ч 17м',
-    imagePath: filmPath6,
+    image: {
+      url: filmPath6,
+    },
   },
   {
-    title: 'Когда я думаю о Германии ночью',
+    nameRU: 'Когда я думаю о Германии ночью',
     duration: '1ч 17м',
-    imagePath: filmPath7,
+    image: {
+      url: filmPath7,
+    },
   },
   {
-    title: 'Gimme Danger: История Игги и The Stooges',
+    nameRU: 'Gimme Danger: История Игги и The Stooges',
     duration: '1ч 17м',
-    imagePath: filmPath8,
+    image: {
+      url: filmPath8,
+    },
   },
   {
-    title: 'Дженис: Маленькая девочка грустит',
+    nameRU: 'Дженис: Маленькая девочка грустит',
     duration: '1ч 17м',
-    imagePath: filmPath9,
+    image: {
+      url: filmPath9,
+    },
   },
   {
-    title: 'Соберись перед прыжком',
+    nameRU: 'Соберись перед прыжком',
     duration: '1ч 17м',
-    imagePath: filmPath10,
+    image: {
+      url: filmPath10,
+    },
   },
   {
-    title: 'Пи Джей Харви: A dog called money',
+    nameRU: 'Пи Джей Харви: A dog called money',
     duration: '1ч 17м',
-    imagePath: filmPath11,
+    image: {
+      url: filmPath11,
+    },
   },
   {
-    title: 'По волнам: Искусство звука в кино',
+    nameRU: 'По волнам: Искусство звука в кино',
     duration: '1ч 17м',
-    imagePath: filmPath12,
+    image: {
+      url: filmPath12,
+    },
   },
 ]
 
