@@ -47,6 +47,14 @@
     height: 100%;
     z-index: 10;
     padding: 20px;
+    /* float: inline-end; */
+    position: sticky; /* idk */
+    top: 50vh;
+    right: 50vh;
+}
+
+.preloader_hidden {
+    display: none;
 }
 
 .preloader__container {

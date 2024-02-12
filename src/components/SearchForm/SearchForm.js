@@ -2,7 +2,6 @@ import React from 'react';
 import './SearchForm.css'
 
 const SearchForm = ({ handleSubmit, inputValue, onInputChange, isShort, onCheckboxChange }) => {
-  console.log(isShort)
   return (
     <form 
       action="/" 

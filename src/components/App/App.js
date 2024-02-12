@@ -26,8 +26,11 @@ function App() {
     email: '',
   });
   const [savedMovieList, setSavedMovieList] = useState([]);
+  const [isVisiblePreloader, setIsVisiblePreloader] = useState(false); 
 
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   function handleCloseNavigationClick() {
     setIsNavigationOpen(false);
   }
@@ -44,11 +47,21 @@ function App() {
             const userData = { name: res.name, email: res.email };
             setIsLoggedIn(true);
             setUserData(userData);
-            navigate('/', { replace: true }); //FIXME: i don't remember hwy i should redirect the user here
+            navigate('/', { replace: true });
           }
         })
     }
   }
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth)
+    };
+    window.addEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    }
+  })
 
   useEffect(() => {
     tokenCheck();
@@ -65,9 +78,11 @@ function App() {
       isLoggedIn, 
       userData, 
       savedMovieList,
+      isVisiblePreloader,
       setIsLoggedIn, 
       setUserData,
       setSavedMovieList,
+      setIsVisiblePreloader,
     }}>
     <div className="App">
       <Routes>
@@ -97,7 +112,7 @@ function App() {
                 handleCloseClick={handleCloseNavigationClick}
               />
               {/* <Movies /> */}
-              <ProtectedRouteElement element={Movies} />
+              <ProtectedRouteElement element={Movies} windowWidth={windowWidth} />
             </main>
             <Footer />
           </>
@@ -112,7 +127,7 @@ function App() {
                 isOpen={isNavigationOpen}
                 handleCloseClick={handleCloseNavigationClick}
               />
-              <ProtectedRouteElement element={SavedMovies} />
+              <ProtectedRouteElement element={SavedMovies} windowWidth={windowWidth} />
               {/* <SavedMovies /> */}
             </main>
             <Footer />

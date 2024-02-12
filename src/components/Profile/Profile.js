@@ -39,7 +39,8 @@ const Profile = () => {
   }
 
   function handleExitClick() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('jwt');  // clear localstorage
+    localStorage.clear();
     context.setIsLoggedIn(false);
 
     navigate('/');

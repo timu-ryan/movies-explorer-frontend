@@ -51,9 +51,15 @@ const Login = () => {
           })
           context.setIsLoggedIn(true);
           navigate('/movies', {replace: true});
+          setErrorClass('auth-page__error-message');
+        } else {
+          setErrorClass('auth-page__error-message auth-page__error-message_active');
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        setErrorClass('auth-page__error-message auth-page__error-message_active');
+      })
 
     // register(name, email, password)
     //   .then(res => navigate('/signin', { replace: true }))

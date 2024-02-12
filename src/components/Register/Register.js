@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthPage from '../AuthPage/AuthPage';
 import { register } from '../../utils/MainApi';
 import { useNavigate } from 'react-router-dom';
+
+var validator = require("email-validator");
 
 const Register = ({ handleSubmit }) => {
   const pageTexts = {
@@ -19,6 +21,8 @@ const Register = ({ handleSubmit }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const [isValid, setIsValid] = useState(true);
 
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
@@ -29,13 +33,50 @@ const Register = ({ handleSubmit }) => {
     password: '',
   });
 
-  const handleChange = (e) => {
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormValue({
+  //     ...formValue,
+  //     [name]: value,
+  //   })
+  // }
+
+
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
       [name]: value,
     })
-  }
+    const regex = /[\wа-я\s\-ё]/gi;
+    if (regex.test(formValue.name)
+      && validator.validate(formValue.email)
+      && formValue.name !== ''
+      && formValue.password !== ''
+    ) {
+      setIsButtonDisabled(false)
+    } else {
+      setIsButtonDisabled(true)
+    }
+    // console.log(formValue)
+    // if (value) {
+    //   if (value.length === 0) {
+    //     setIsButtonDisabled(true)
+    //   } else {
+    //     setIsButtonDisabled(false)
+    //   }
+    // } else {
+    //   setIsButtonDisabled(false)
+    // }
+    // if (name === 'email') {
+    //   // value = '';
+    //   setIsButtonDisabled(!validator.validate(value)); 
+    // } /// TODO: validation required
+    // if (name === 'name') {
+    //   const regex = /[\wа-я\s\-ё]/gi;
+    //   setIsButtonDisabled(!regex.test(value))
+    // }
+  })
 
   function handleSubmitClick(e) {
     e.preventDefault();
@@ -48,16 +89,27 @@ const Register = ({ handleSubmit }) => {
     if (true) {    /// TODO: check is input valid  
       const { name, email, password } = formValue;
       register(name, email, password)
-        .then(res => navigate('/signin', { replace: true }))
-        .catch(e => console.log(e))
+        .then(res => {
+          navigate('/signin', { replace: true });
+          setErrorClass('auth-page__error-message');
+        })
+        .catch(e => {
+          setErrorClass('auth-page__error-message auth-page__error-message_active');
+          console.log(e)
+        })
     }
   }
+
+  // const handleCatchChange = useCallback(() => {
+  //   setName(count + 1);
+  // }, [count]);
 
   return (
     <AuthPage 
       texts={pageTexts}
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass}
+      isButtonDisabled={isButtonDisabled}
     >
       <AuthInput 
         value={formValue.name}

@@ -60,6 +60,11 @@
   opacity: .8;
 }
 
+.auth-page__button_disabled {
+  opacity: .8;
+  cursor: default;
+}
+
 .auth-page__suggestion {
   display: flex;
   justify-content: center;

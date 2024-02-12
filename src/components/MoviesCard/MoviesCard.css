@@ -111,6 +111,11 @@
 .card__delete-button:hover {
   opacity: .8;
 }
+
+.card__link {
+  text-decoration: none;
+}
+
 /* 
 .card:hover .card__delete-button {
   visibility: visible;
