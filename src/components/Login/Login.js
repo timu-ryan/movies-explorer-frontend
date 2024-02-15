@@ -28,6 +28,8 @@ const Login = () => {
 
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
 
+  const [errorText, setErrorText] = useState('что-то пошло не так...')
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValue({
@@ -81,6 +83,7 @@ const Login = () => {
       texts={pageTexts} 
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass} 
+      errorText={errorText}
     >
       <AuthInput 
         value={formValue.name}

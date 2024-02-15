@@ -23,7 +23,7 @@ const Register = ({ handleSubmit }) => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const [isValid, setIsValid] = useState(true);
 
@@ -34,6 +34,8 @@ const Register = ({ handleSubmit }) => {
     email: '',
     password: '',
   });
+
+  const [errorText, setErrorText] = useState('что-то пошло не так...')
 
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
@@ -46,39 +48,61 @@ const Register = ({ handleSubmit }) => {
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    })
     const regex = /[\wа-я\s\-ё]/gi;
-    if (regex.test(formValue.name)
-      && validator.validate(formValue.email)
-      && formValue.name !== ''
-      && formValue.password !== ''
-    ) {
-      setIsButtonDisabled(false)
-    } else {
-      setIsButtonDisabled(true)
-    }
-    // console.log(formValue)
-    // if (value) {
-    //   if (value.length === 0) {
-    //     setIsButtonDisabled(true)
-    //   } else {
-    //     setIsButtonDisabled(false)
-    //   }
-    // } else {
-    //   setIsButtonDisabled(false)
-    // }
-    // if (name === 'email') {
-    //   // value = '';
-    //   setIsButtonDisabled(!validator.validate(value)); 
-    // } /// TODO: validation required
-    // if (name === 'name') {
-    //   const regex = /[\wа-я\s\-ё]/gi;
-    //   setIsButtonDisabled(!regex.test(value))
-    // }
-  })
+    setFormValue(formValue => {
+      const newFormValue = {
+        ...formValue,
+        [name]: value,
+      }
+      if (regex.test(newFormValue.name)
+        && validator.validate(newFormValue.email)
+        && (newFormValue.name !== '')
+        && (newFormValue.password !== '')
+      ) {
+        setIsButtonDisabled(false)
+        setErrorClass('auth-page__error-message');
+        console.log(`${JSON.stringify(newFormValue)} active`)
+      } else {
+        setIsButtonDisabled(true)
+        if (!regex.test(newFormValue.name)) {
+          setErrorText('Имя должно содержать только кириллицу, латиницу или дефис, длина должна быть больше 2')
+        }
+        if (!validator.validate(newFormValue.email)) {
+          setErrorText('E-mail должен быть вида email@gmail.com')
+        }
+        if (newFormValue.name === '' || newFormValue.password === '') {
+          setErrorText('Все поля обязательные, длина имени должна быть не менее двух')
+        }
+        setErrorClass('auth-page__error-message auth-page__error-message_active');
+        // console.log(`${JSON.stringify(newFormValue)} disabled`)
+      }
+        return newFormValue;
+    })
+    
+  }, [])
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   const regex = /[\wа-я\s\-ё]/gi;
+  //   setFormValue(formValue => {
+  //       const newFormValue = {
+  //         ...formValue,
+  //         [name]: value,
+  //       }
+  //       console.log(newFormValue)
+  //       return newFormValue;
+  //   })
+  //   // console.log(formValue)
+  //   // if (regex.test(formValue.name)
+  //   //   && validator.validate(formValue.email)
+  //   //   && formValue.name !== ''
+  //   //   && formValue.password !== ''
+  //   // ) {
+  //   //   setIsButtonDisabled(false)
+  //   // } else {
+  //   //   setIsButtonDisabled(true)
+  //   // }
+  // }
 
   function handleSubmitClick(e) {
     e.preventDefault();
@@ -128,6 +152,7 @@ const Register = ({ handleSubmit }) => {
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass}
       isButtonDisabled={isButtonDisabled}
+      errorText={errorText}
     >
       <AuthInput 
         value={formValue.name}

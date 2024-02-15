@@ -3,7 +3,14 @@ import { NavLink } from 'react-router-dom';
 import logoPath from '../../images/logo.svg';
 import './AuthPage.css';
 
-const AuthPage = ({texts, children, handleSubmitClick, errorClass, isButtonDisabled}) => {
+const AuthPage = ({
+    texts, 
+    children, 
+    handleSubmitClick, 
+    errorClass, 
+    isButtonDisabled, 
+    errorText
+  }) => {
   const {
     greeting,
     buttonText,
@@ -27,7 +34,7 @@ const AuthPage = ({texts, children, handleSubmitClick, errorClass, isButtonDisab
         className="auth-page__form"
       >
           {children}
-          <span className={errorClass}>Что-то пошло не так...</span>
+          <span className={errorClass}>{errorText}</span>
           {isButtonDisabled ? 
             <button 
               type="submit" 
