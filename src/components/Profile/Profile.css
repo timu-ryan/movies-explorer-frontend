@@ -83,12 +83,49 @@
   opacity: .8;
 }
 
+.profile__button_disabled {
+  opacity: .8;
+  cursor: default;
+}
+
 .profile__button:last-of-type {
   margin: 0 0;
 }
 
 .profile__button_type_exit {
   color: #EE3465;
+}
+
+.auth-page__error-message {
+  visibility: hidden;
+  top: 252px;
+  position: absolute;
+  color: #EE3465;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.auth-page__error-message_active {
+  visibility: visible;
+}
+
+.auth-page__success-message {
+  visibility: hidden;
+  top: 252px;
+  position: absolute;
+  color: #0bb92a;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.auth-page__success-message_active {
+  visibility: visible;
 }
 
 @media screen and (max-width: 768px) {
