@@ -44,7 +44,7 @@ const Movies = ({ windowWidth }) => {
   const [visibleFilmsNumber, setVisibleFilmsNumber] = useState(visibleMovies.length)
 
   const { isVisiblePreloader, setIsVisiblePreloader } = useContext(AppContext);
-  
+
   // useEffect(() => {
   //   if(JSON.parse(localStorage.getItem("foundFilms")) !== null) {
   //     // setMovies(JSON.parse(localStorage.getItem("foundFilms")))
@@ -142,7 +142,7 @@ const Movies = ({ windowWidth }) => {
               ) {
                 return false;
               }
-              if (e.target.checked && film.duration > 40) {
+              if (!prev && film.duration > 40) {
                 return false
               }
               return true;
@@ -188,7 +188,7 @@ const Movies = ({ windowWidth }) => {
         && !isEmptySearch
         && !isErrorSearch
         && !isMoviesNotFound 
-        && visibleFilmsNumber <= movies.length
+        && visibleFilmsNumber < movies.length
         && movies.length !== 0
         && <button type="button" className='movies__button' onClick={addVisibleFilms}>Ещё</button>}
     </div>
