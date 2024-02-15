@@ -32,6 +32,7 @@ const SearchForm = ({ handleSubmit, inputValue, onInputChange, isShort, onCheckb
           type='checkbox' 
           name="search-checkbox"
           value={isShort}
+          checked={isShort}
           onChange={onCheckboxChange}
           required
           className="search-form__checkbox"

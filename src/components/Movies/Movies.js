@@ -25,10 +25,15 @@ const Movies = ({ windowWidth }) => {
     foundFilms = JSON.parse(localStorage.getItem("foundFilms")).slice(0, addButtonParams.first) 
   }
 
+  let initialIsShort = false;
+  if (localStorage.getItem('isShort') === 'true') {
+    initialIsShort = true;
+  }
+
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("foundFilms")) || []);
   // const [movies, setMovies] = useState([]]);
   const [inputValue, setInputValue] = useState(localStorage.getItem('inputValue') || '');
-  const [isShort, setIsShort] = useState(localStorage.getItem('isShort') || false);
+  const [isShort, setIsShort] = useState(initialIsShort || false);
   // const [isShort, setIsShort] = useState(localStorage.getItem(false));
   const [visibleMovies, setVisibleMovies] = useState(foundFilms);
   const [isMoviesNotFound, setIsMoviesNotFound] = useState(false);
@@ -61,7 +66,7 @@ const Movies = ({ windowWidth }) => {
     setIsVisiblePreloader(true);
     setVisibleMovies([])
     localStorage.setItem('inputValue', inputValue);
-    localStorage.setItem('isShort', isShort);
+    //localStorage.setItem('isShort', isShort);
     getFilms()
       .then(films => {
         setVisibleFilmsNumber(prev => addButtonParams.first);  // depending on the screen size
@@ -114,7 +119,10 @@ const Movies = ({ windowWidth }) => {
   }
 
   const handleCheckboxChange = (e) => {
-    setIsShort(e.target.checked)
+    setIsShort((prev) => {
+      localStorage.setItem('isShort', e.target.checked);
+      return e.target.checked;
+    })
   }
 
   return (
