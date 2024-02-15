@@ -59,6 +59,50 @@ const SavedMovies = ({ windowWidth }) => {
 
   const handleCheckboxChange = (e) => {
     setIsShort(e.target.checked)
+    setVisibleFilms([])
+    if(!inputValue) {
+      const foundFilms = savedMovieList.filter(film => {
+        if (e.target.checked && film.duration > 40) {
+          return false
+        }
+        return true;
+      });
+      if (foundFilms.length === 0) {
+        setIsMoviesNotFound(true)
+        setVisibleFilms([])
+      } else {
+        setIsMoviesNotFound(false)
+      }
+      setIsEmptySearch(false)
+      setIsErrorSearch(false)
+      setVisibleFilms(foundFilms)
+      // setVisibleFilms(savedMovieList)
+      // setIsEmptySearch(true)
+      // setIsMoviesNotFound(false)
+      // setIsErrorSearch(false)
+    } else {
+      const foundFilms = savedMovieList.filter(film => {
+        // console.log(film)
+        if (film.nameRU.toLowerCase().search(inputValue.toLowerCase()) === -1
+          && film.nameEN.toLowerCase().search(inputValue.toLowerCase()) === -1
+        ) {
+          return false;
+        }
+        if (e.target.checked && film.duration > 40) {
+          return false
+        }
+        return true;
+      });
+      if (foundFilms.length === 0) {
+        setIsMoviesNotFound(true)
+        setVisibleFilms([])
+      } else {
+        setIsMoviesNotFound(false)
+      }
+      setIsEmptySearch(false)
+      setIsErrorSearch(false)
+      setVisibleFilms(foundFilms)
+    }
   }
   
   return (

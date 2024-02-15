@@ -119,9 +119,54 @@ const Movies = ({ windowWidth }) => {
   }
 
   const handleCheckboxChange = (e) => {
+    e.preventDefault();
+    setIsVisiblePreloader(true);
     setIsShort((prev) => {
       localStorage.setItem('isShort', e.target.checked);
-      return e.target.checked;
+      setVisibleMovies([])
+      localStorage.setItem('inputValue', inputValue);
+      //localStorage.setItem('isShort', isShort);
+      getFilms()
+        .then(films => {
+          setVisibleFilmsNumber(prev => addButtonParams.first);  // depending on the screen size
+          if(!inputValue) {
+            // setMovies(prev => films)
+            setVisibleMovies([])
+            setIsEmptySearch(true)
+            setIsMoviesNotFound(false)
+            setIsErrorSearch(false)
+          } else {
+            const foundFilms = films.filter(film => {
+              if (film.nameRU.toLowerCase().search(inputValue.toLowerCase()) === -1
+                && film.nameEN.toLowerCase().search(inputValue.toLowerCase()) === -1
+              ) {
+                return false;
+              }
+              if (e.target.checked && film.duration > 40) {
+                return false
+              }
+              return true;
+            });
+            // console.log(foundFilms) // setMovies
+            if (foundFilms.length === 0) {
+              setIsMoviesNotFound(true)
+              setVisibleMovies([])
+            } else {
+              setIsMoviesNotFound(false)
+            }
+            setIsEmptySearch(false)
+            setIsErrorSearch(false)
+            setMovies(foundFilms)
+            localStorage.setItem("foundFilms", JSON.stringify(foundFilms));
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          setVisibleMovies([])
+          setIsErrorSearch(true)
+        })
+        .finally(() => setIsVisiblePreloader(false))
+        return e.target.checked;
     })
   }
 
