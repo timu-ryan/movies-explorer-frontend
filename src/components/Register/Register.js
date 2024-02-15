@@ -61,7 +61,6 @@ const Register = ({ handleSubmit }) => {
       ) {
         setIsButtonDisabled(false)
         setErrorClass('auth-page__error-message');
-        console.log(`${JSON.stringify(newFormValue)} active`)
       } else {
         setIsButtonDisabled(true)
         if (!regex.test(newFormValue.name)) {
@@ -74,7 +73,6 @@ const Register = ({ handleSubmit }) => {
           setErrorText('Все поля обязательные, длина имени должна быть не менее двух')
         }
         setErrorClass('auth-page__error-message auth-page__error-message_active');
-        // console.log(`${JSON.stringify(newFormValue)} disabled`)
       }
         return newFormValue;
     })
