@@ -19,8 +19,13 @@ import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { checkToken, getSavedMovies } from '../../utils/MainApi';
 
 function App() {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let isLoggedInInitially = false;
+  if (localStorage.getItem("jwt")) {
+    isLoggedInInitially = true;
+  }
+
+  // const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInInitially);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -47,7 +52,7 @@ function App() {
             const userData = { name: res.name, email: res.email };
             setIsLoggedIn(true);
             setUserData(userData);
-            navigate('/', { replace: true });
+            // navigate('/', { replace: true });
           }
         })
     }

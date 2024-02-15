@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthPage from '../AuthPage/AuthPage';
-import { register } from '../../utils/MainApi';
+import { register, authorize } from '../../utils/MainApi';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../contexts/AppContext';
 
 var validator = require("email-validator");
 
@@ -14,6 +15,7 @@ const Register = ({ handleSubmit }) => {
     linkText: 'Войти',
     linkTo: '/signin'
   }
+  const context = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -92,6 +94,22 @@ const Register = ({ handleSubmit }) => {
         .then(res => {
           navigate('/signin', { replace: true });
           setErrorClass('auth-page__error-message');
+        })
+        .then(() => {
+          authorize(email, password)
+            .then(data => {
+              if(data.token) {
+                // setFormValue({
+                //   email: '',
+                //   password: '',
+                // })
+                context.setIsLoggedIn(true);
+                navigate('/movies', {replace: true});
+                setErrorClass('auth-page__error-message');
+              } else {
+                setErrorClass('auth-page__error-message auth-page__error-message_active');
+              }
+            })
         })
         .catch(e => {
           setErrorClass('auth-page__error-message auth-page__error-message_active');
