@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useDebugValue } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 // import films from '../../utils/films';
@@ -19,6 +19,17 @@ const SavedMovies = ({ windowWidth }) => {
   const [isEmptySearch, setIsEmptySearch] = useState(false)
   const [isErrorSearch, setIsErrorSearch] = useState(false)
   
+  useEffect(() => {
+    setVisibleFilms(savedMovieList);
+  }, [savedMovieList])
+
+  useEffect(() => {
+    getSavedMovies()
+      .then(movies => {
+        setSavedMovieList(movies)
+      })
+  }, [setSavedMovieList])
+
   function handleSubmit(evt) {
     evt.preventDefault();
     setVisibleFilms([])

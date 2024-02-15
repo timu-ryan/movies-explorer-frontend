@@ -49,7 +49,7 @@
 }
 
 .card__save-button {
-  visibility: hidden;
+  /* visibility: hidden; */
   position: absolute;
   right: 14px;
   top: 14px;

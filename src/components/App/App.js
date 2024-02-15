@@ -72,9 +72,9 @@ function App() {
     tokenCheck();
     if(isLoggedIn) {
       getSavedMovies()
-      .then(movies => {
-        setSavedMovieList(movies)
-      })
+        .then(movies => {
+          setSavedMovieList(movies)
+        })
     }
   }, [isLoggedIn])
 

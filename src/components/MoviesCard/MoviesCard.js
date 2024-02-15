@@ -18,7 +18,7 @@ const MoviesCard = ({ movie, title, duration, imagePath, isSavedCards, savedImag
     // проверка на то, есть ли в массиве лайкнутых этот фильм
     setIsFavourite(savedMovieList.find((savedMovie) => savedMovie.movieId === movie.id || savedMovie.movieId === movie.movieId ))
     // первое для вкладки movies, второе для вкладки saved-movies
-  }, []);
+  }, [movie.id, movie.movieId, savedMovieList]);
 
   
   function addToFavourites() {
