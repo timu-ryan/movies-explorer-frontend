@@ -84,7 +84,12 @@
 }
 
 .profile__button_disabled {
-  opacity: .8;
+  opacity: .5;
+  cursor: default;
+}
+
+.profile__button_disabled:hover {
+  opacity: .5;
   cursor: default;
 }
 
