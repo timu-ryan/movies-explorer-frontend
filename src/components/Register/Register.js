@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthPage from '../AuthPage/AuthPage';
 import { register, authorize } from '../../utils/MainApi';
@@ -44,6 +44,12 @@ const Register = ({ handleSubmit }) => {
   //     [name]: value,
   //   })
   // }
+
+  useEffect(() => {
+    if(localStorage.getItem('jwt')) {
+      navigate('/movies', {replace: true});
+    }
+  }, [navigate])
 
 
   const handleChange = useCallback((e) => {

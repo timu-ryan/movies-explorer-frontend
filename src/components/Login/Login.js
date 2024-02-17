@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AuthInput from '../AuthInput/AuthInput';
 import AuthPage from '../AuthPage/AuthPage';
 import { authorize } from '../../utils/MainApi';
@@ -32,6 +32,12 @@ const Login = () => {
 
   const [errorText, setErrorText] = useState('что-то пошло не так...')
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if(localStorage.getItem('jwt')) {
+      navigate('/movies', {replace: true});
+    }
+  }, [navigate])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
