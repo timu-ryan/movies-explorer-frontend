@@ -5,6 +5,8 @@ import { authorize } from '../../utils/MainApi';
 import { AppContext } from '../../contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 
+var validator = require("email-validator");
+
 const Login = () => {
   const pageTexts = {
     greeting: 'Рады видеть!',
@@ -29,12 +31,29 @@ const Login = () => {
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
 
   const [errorText, setErrorText] = useState('что-то пошло не так...')
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValue({
-      ...formValue,
-      [name]: value,
+    setFormValue(formValue => {
+      const newFormValue = {
+        ...formValue,
+        [name]: value,
+      }
+      if (validator.validate(newFormValue.email) && (newFormValue.password !== '')) {
+        setIsButtonDisabled(false)
+        setErrorClass('auth-page__error-message');
+      } else {
+        setIsButtonDisabled(true)
+        if (!validator.validate(newFormValue.email)) {
+          setErrorText('E-mail должен быть вида email@gmail.com')
+        }
+        if (newFormValue.password === '') {
+          setErrorText('Все поля обязательные')
+        }
+        setErrorClass('auth-page__error-message auth-page__error-message_active');
+      }
+      return newFormValue;
     })
   }
 
@@ -83,6 +102,7 @@ const Login = () => {
       texts={pageTexts} 
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass} 
+      isButtonDisabled={isButtonDisabled}
       errorText={errorText}
     >
       <AuthInput 
