@@ -37,6 +37,10 @@ const MoviesCard = ({ movie, title, duration, imagePath, isSavedCards, savedImag
   function deleteFromFavourites() {
     setIsVisiblePreloader(true)
     // setClickedCard(movie)
+    if (!isSavedCards) {
+      movie._id = savedMovieList.find(film => film.movieId === movie.id)._id;
+      // movie doesn't have _id field 
+    }
     removeFromFavourites(movie._id)
       .then(() => {
         setIsFavourite(false)
@@ -61,9 +65,12 @@ const MoviesCard = ({ movie, title, duration, imagePath, isSavedCards, savedImag
       {
         isSavedCards && (<button type='button' className='card__delete-button' onClick={ deleteFromFavourites }></button>)
       }{
-      !isFavourite && (<>
+      !isFavourite ? (<>
           <button type='button' className='card__save-button' onClick={ addToFavourites }>Сохранить</button>
           <div className='card__saved-icon'></div>
+        </>)
+        : (!isSavedCards && <>
+          <button type='button' className='card__saved-button' onClick={ deleteFromFavourites }></button>
         </>)
       }
     </li>

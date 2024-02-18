@@ -83,6 +83,23 @@
   cursor: pointer;
 }
 
+.card__saved-button {
+  /* visibility: hidden; */
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-image: url(../../images/saved_film.svg);
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.card__saved-button:hover {
+  opacity: .8;
+}
+
 .card__saved-icon {
   visibility: hidden;
   position: absolute;
@@ -106,6 +123,7 @@
   width: 21px;
   height: 21px;
   cursor: pointer;
+  z-index: 4;
 }
 
 .card__delete-button:hover {
