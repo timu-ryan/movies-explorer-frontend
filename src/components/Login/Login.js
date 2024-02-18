@@ -5,16 +5,16 @@ import { authorize } from '../../utils/MainApi';
 import { AppContext } from '../../contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 
+import { 
+  LOGIN_TEXTS, 
+  EMPTY_FIELD_LOGIN_ERROR_TEXT,
+  EMAIL_ERROR_TEXT,
+  STANDART_ERROR_TEXT,
+ } from '../../utils/constants';
+
 var validator = require("email-validator");
 
 const Login = () => {
-  const pageTexts = {
-    greeting: 'Рады видеть!',
-    buttonText: 'Войти',
-    suggestionText: 'Ещё не зарегистрированы?',
-    linkText: 'Регистрация',
-    linkTo: '/signup'
-  }
   const context = useContext(AppContext);
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
@@ -22,15 +22,9 @@ const Login = () => {
     password: '',
   });
 
-
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-
-  const [isValid, setIsValid] = useState(true);
-
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
 
-  const [errorText, setErrorText] = useState('что-то пошло не так...')
+  const [errorText, setErrorText] = useState(STANDART_ERROR_TEXT)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
@@ -52,10 +46,10 @@ const Login = () => {
       } else {
         setIsButtonDisabled(true)
         if (!validator.validate(newFormValue.email)) {
-          setErrorText('E-mail должен быть вида email@gmail.com')
+          setErrorText(EMAIL_ERROR_TEXT)
         }
         if (newFormValue.password === '') {
-          setErrorText('Все поля обязательные')
+          setErrorText(EMPTY_FIELD_LOGIN_ERROR_TEXT)
         }
         setErrorClass('auth-page__error-message auth-page__error-message_active');
       }
@@ -87,25 +81,11 @@ const Login = () => {
         console.log(err)
         setErrorClass('auth-page__error-message auth-page__error-message_active');
       })
-
-    // register(name, email, password)
-    //   .then(res => navigate('/signin', { replace: true }))
-    //   .catch(e => console.log(e))
   }
-
-  // function handleSubmitClick(e) {
-  //   e.preventDefault();
-  //   setIsValid(isEmailValid && isPasswordValid)
-  //   if(isValid) {
-  //     setErrorClass('auth-page__error-message')
-  //   } else {
-  //     setErrorClass('auth-page__error-message auth-page__error-message_active');  
-  //   }
-  // }
 
   return (
     <AuthPage 
-      texts={pageTexts} 
+      texts={LOGIN_TEXTS} 
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass} 
       isButtonDisabled={isButtonDisabled}
@@ -117,7 +97,6 @@ const Login = () => {
         name='email' 
         title='E-mail' 
         type='email' 
-        setIsValid={setIsEmailValid} 
         min={6}
         max={24}
       />
@@ -127,7 +106,6 @@ const Login = () => {
         name='password' 
         title='Пароль' 
         type='password' 
-        setIsValid={setIsPasswordValid} 
         min={6}
         max={24}
       />

@@ -9,8 +9,7 @@ var validator = require("email-validator");
 const Profile = () => {
 
   const context = useContext(AppContext);
-  // const [nameValue, setNameValue] = useState('Тимур');
-  // const [emailValue, setEmailValue] = useState('pochta@yandex.ru');
+  
   const [formValue, setFormValue] = useState({
     name: '',
     email: '',
@@ -24,9 +23,6 @@ const Profile = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true)
 
   const navigate = useNavigate();
-  // function handleNameChange(e) {
-  //   setNameValue(e.target.value);
-  // }
 
   useEffect(() => {
     setFormValue(context.userData)
@@ -72,10 +68,6 @@ const Profile = () => {
     })
   }, [context.userData.email, context.userData.name])
 
-  // function handleEmailChange(e) {
-  //   setEmailValue(e.target.value)
-  // }
-
   function handleEditClick(e) {
     e.preventDefault();
       const { name, email } = formValue;
@@ -87,7 +79,6 @@ const Profile = () => {
             setSuccessClass('auth-page__success-message')
           }, 5000);
           setIsButtonDisabled(true)
-          // setErrorClass(() => 'auth-page__error-message auth-page__error-message_active');
         })
         .catch(err => {
           setErrorText('что-то пошло не так...')
@@ -144,11 +135,6 @@ const Profile = () => {
           />
           <span className="profile-input-error"></span>
         </label>
-        {/* <button 
-          type="submit"
-          className="profile__button"
-          // onClick={handleEditClick}
-        >Редактировать</button> */}
         {isButtonDisabled ? 
             <button 
               type="submit"

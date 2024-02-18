@@ -12,7 +12,6 @@ const MoviesCardList = ({ films, isSavedCards }) => {
   return (
     <div className='card-container'>
       <ul className='card-container__list'>
-        {/* {console.log(films)} */}
         {films.map(film => (
           <MoviesCard 
             movie={film}
@@ -24,7 +23,6 @@ const MoviesCardList = ({ films, isSavedCards }) => {
           />
         ))}
       </ul>
-      {/* <button className='card-container__button'>Ещё</button> */}
     </div>
   )
 }

@@ -1,20 +1,19 @@
-import React, { useEffect, useState, useContext, useDebugValue } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 // import films from '../../utils/films';
 
 import { AppContext } from '../../contexts/AppContext';
-import { getSavedMovies, removeFromFavourites } from '../../utils/MainApi';
+import { getSavedMovies } from '../../utils/MainApi';
+
+import { SHORT_DURATION } from '../../utils/constants';
 
 const SavedMovies = ({ windowWidth }) => {
-  // const [savedMovies, setSavedMovies] = useState([]);
   const context = useContext(AppContext);
   const { savedMovieList, setSavedMovieList } = context; 
   const [visibleFilms, setVisibleFilms] = useState(savedMovieList);
   const [inputValue, setInputValue] = useState('');
   const [isShort, setIsShort] = useState(false);
-  // const [isShort, setIsShort] = useState(localStorage.getItem(false));
-  //const [visibleMovies, setVisibleMovies] = useState(JSON.parse(localStorage.getItem("foundFilms")).slice(0, addButtonParams.first) || []);
   const [isMoviesNotFound, setIsMoviesNotFound] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false)
   const [isErrorSearch, setIsErrorSearch] = useState(false)
@@ -46,7 +45,7 @@ const SavedMovies = ({ windowWidth }) => {
         ) {
           return false;
         }
-        if (isShort && film.duration > 40) {
+        if (isShort && film.duration > SHORT_DURATION) {
           return false
         }
         return true;
@@ -73,7 +72,7 @@ const SavedMovies = ({ windowWidth }) => {
     setVisibleFilms([])
     if(!inputValue) {
       const foundFilms = savedMovieList.filter(film => {
-        if (e.target.checked && film.duration > 40) {
+        if (e.target.checked && film.duration > SHORT_DURATION) {
           return false
         }
         return true;
@@ -99,7 +98,7 @@ const SavedMovies = ({ windowWidth }) => {
         ) {
           return false;
         }
-        if (e.target.checked && film.duration > 40) {
+        if (e.target.checked && film.duration > SHORT_DURATION) {
           return false
         }
         return true;

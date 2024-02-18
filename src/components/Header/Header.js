@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './Header.css'
 
 import logoPath from '../../images/logo.svg';
 import { AppContext } from '../../contexts/AppContext';
-// import Navigation from '../Navigation/Navigation';
 
 const Header = ({ handleNavigationClick }) => {
   const context = useContext(AppContext);

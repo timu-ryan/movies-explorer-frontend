@@ -1,24 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-// import films from '../../utils/films'
+
 import './Movies.css'
 import { getFilms } from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader'
 import { AppContext } from '../../contexts/AppContext';
 
+import { 
+  ADD_PARAMS_BUTTON_MAX_FIRST, 
+  ADD_PARAMS_BUTTON_MAX_ADDITIONAL,
+  WINDOW_WIDTH_MEDIUM_SIZE,
+  ADD_PARAMS_BUTTON_MEDIUM_FIRST,
+  ADD_PARAMS_BUTTON_MEDIUM_ADDITIONAL,
+  WINDOW_WIDTH_SMALL_SIZE,
+  ADD_PARAMS_BUTTON_SMALL_FIRST,
+  ADD_PARAMS_BUTTON_SMALL_ADDITIONAL,
+  SHORT_DURATION,
+ } from '../../utils/constants';
+
 const Movies = ({ windowWidth }) => {
   const addButtonParams = { // >769px
-    first: 12,
-    additional: 3,
+    first: ADD_PARAMS_BUTTON_MAX_FIRST,
+    additional: ADD_PARAMS_BUTTON_MAX_ADDITIONAL,
   }
-  if (windowWidth < 770) {
-    addButtonParams.first = 8;
-    addButtonParams.additional = 2;
+  if (windowWidth < WINDOW_WIDTH_MEDIUM_SIZE) {
+    addButtonParams.first = ADD_PARAMS_BUTTON_MEDIUM_FIRST;
+    addButtonParams.additional = ADD_PARAMS_BUTTON_MEDIUM_ADDITIONAL;
   }
-  if (windowWidth < 450) {
-    addButtonParams.first = 5;
-    addButtonParams.additional = 2;
+  if (windowWidth < WINDOW_WIDTH_SMALL_SIZE) {
+    addButtonParams.first = ADD_PARAMS_BUTTON_SMALL_FIRST;
+    addButtonParams.additional = ADD_PARAMS_BUTTON_SMALL_ADDITIONAL;
   }
   let foundFilms = []
   if (JSON.parse(localStorage.getItem("foundFilms"))) {
@@ -31,31 +43,16 @@ const Movies = ({ windowWidth }) => {
   }
 
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("foundFilms")) || []);
-  // const [movies, setMovies] = useState([]]);
   const [inputValue, setInputValue] = useState(localStorage.getItem('inputValue') || '');
   const [isShort, setIsShort] = useState(initialIsShort || false);
-  // const [isShort, setIsShort] = useState(localStorage.getItem(false));
   const [visibleMovies, setVisibleMovies] = useState(foundFilms);
   const [isMoviesNotFound, setIsMoviesNotFound] = useState(false);
   const [isEmptySearch, setIsEmptySearch] = useState(false);
   const [isErrorSearch, setIsErrorSearch] = useState(false);
 
-  // const [visibleFilmsNumber, setVisibleFilmsNumber] = useState(0)
   const [visibleFilmsNumber, setVisibleFilmsNumber] = useState(visibleMovies.length)
 
   const { isVisiblePreloader, setIsVisiblePreloader } = useContext(AppContext);
-
-  // useEffect(() => {
-  //   if(JSON.parse(localStorage.getItem("foundFilms")) !== null) {
-  //     // setMovies(JSON.parse(localStorage.getItem("foundFilms")))
-  //     // setVisibleFilmsNumber(prev => addButtonParams.first);
-  //     // setVisibleMovies(movies.slice(0, addButtonParams.first))
-  //     // setMovies(JSON.parse(localStorage.getItem("foundFilms")))
-  //     console.log(visibleMovies)
-  //     // setIsShort(localStorage.getItem('isShort'))
-  //     // setInputValue(localStorage.getItem('inputValue'))
-  //   }
-  // }, [])
 
   useEffect(() => {
     setVisibleFilmsNumber(addButtonParams.first)
@@ -70,12 +67,10 @@ const Movies = ({ windowWidth }) => {
     setIsVisiblePreloader(true);
     setVisibleMovies([])
     localStorage.setItem('inputValue', inputValue);
-    //localStorage.setItem('isShort', isShort);
     getFilms()
       .then(films => {
         setVisibleFilmsNumber(prev => addButtonParams.first);  // depending on the screen size
         if(!inputValue) {
-          // setMovies(prev => films)
           setVisibleMovies([])
           setIsEmptySearch(true)
           setIsMoviesNotFound(false)
@@ -87,12 +82,11 @@ const Movies = ({ windowWidth }) => {
             ) {
               return false;
             }
-            if (isShort && film.duration > 40) {
+            if (isShort && film.duration > SHORT_DURATION) {
               return false
             }
             return true;
           });
-          // console.log(foundFilms) // setMovies
           if (foundFilms.length === 0) {
             setIsMoviesNotFound(true)
             setVisibleMovies([])
@@ -129,12 +123,10 @@ const Movies = ({ windowWidth }) => {
       localStorage.setItem('isShort', e.target.checked);
       setVisibleMovies([])
       localStorage.setItem('inputValue', inputValue);
-      //localStorage.setItem('isShort', isShort);
       getFilms()
         .then(films => {
           setVisibleFilmsNumber(prev => addButtonParams.first);  // depending on the screen size
           if(!inputValue) {
-            // setMovies(prev => films)
             setVisibleMovies([])
             setIsEmptySearch(true)
             setIsMoviesNotFound(false)
@@ -146,12 +138,11 @@ const Movies = ({ windowWidth }) => {
               ) {
                 return false;
               }
-              if (!prev && film.duration > 40) {
+              if (!prev && film.duration > SHORT_DURATION) {
                 return false
               }
               return true;
             });
-            // console.log(foundFilms) // setMovies
             if (foundFilms.length === 0) {
               setIsMoviesNotFound(true)
               setVisibleMovies([])

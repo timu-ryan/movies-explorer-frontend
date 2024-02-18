@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './AuthInput.css'
 
 const AuthInput = ({ 
@@ -7,28 +7,9 @@ const AuthInput = ({
   name, 
   title, 
   type,
-  setIsValid,
   min,
   max,
  }) => {
-  
-  // const [value, setValue] = useState('');
-
-  function validate(value, min, max) {
-    if (value < min) {
-      setIsValid(false);
-    } else if (value > max) {
-      setIsValid(false);
-    } else {
-      setIsValid(true)
-    }
-  }
-
-  // function handleChange(e) {
-  //   setValue(e.target.value);
-  //   // console.log(value)
-  //   validate(value, min, max);
-  // }
 
   return (
       <label className="auth-input">

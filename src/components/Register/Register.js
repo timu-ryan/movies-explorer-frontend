@@ -5,27 +5,22 @@ import { register, authorize } from '../../utils/MainApi';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 
+import { 
+  REGISTER_TEXTS, 
+  EMPTY_FIELD_ERROR_TEXT,
+  EMAIL_ERROR_TEXT,
+  NAME_ERROR_TEXT,
+  STANDART_ERROR_TEXT,
+ } from '../../utils/constants';
+
 var validator = require("email-validator");
 
-const Register = ({ handleSubmit }) => {
-  const pageTexts = {
-    greeting: 'Добро пожаловать!',
-    buttonText: 'Зарегистрироваться',
-    suggestionText: 'Уже зарегистрированы?',
-    linkText: 'Войти',
-    linkTo: '/signin'
-  }
+const Register = () => {
   const context = useContext(AppContext);
 
   const navigate = useNavigate();
 
-  const [isNameValid, setIsNameValid] = useState(true);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  const [isValid, setIsValid] = useState(true);
 
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
 
@@ -35,15 +30,7 @@ const Register = ({ handleSubmit }) => {
     password: '',
   });
 
-  const [errorText, setErrorText] = useState('что-то пошло не так...')
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormValue({
-  //     ...formValue,
-  //     [name]: value,
-  //   })
-  // }
+  const [errorText, setErrorText] = useState(STANDART_ERROR_TEXT)
 
   useEffect(() => {
     if(localStorage.getItem('jwt')) {
@@ -70,13 +57,13 @@ const Register = ({ handleSubmit }) => {
       } else {
         setIsButtonDisabled(true)
         if (!regex.test(newFormValue.name)) {
-          setErrorText('Имя должно содержать только кириллицу, латиницу или дефис, длина должна быть больше 2')
+          setErrorText(NAME_ERROR_TEXT)
         }
         if (!validator.validate(newFormValue.email)) {
-          setErrorText('E-mail должен быть вида email@gmail.com')
+          setErrorText(EMAIL_ERROR_TEXT)
         }
         if (newFormValue.name === '' || newFormValue.password === '') {
-          setErrorText('Все поля обязательные, длина имени должна быть не менее двух')
+          setErrorText(EMPTY_FIELD_ERROR_TEXT)
         }
         setErrorClass('auth-page__error-message auth-page__error-message_active');
       }
@@ -85,38 +72,8 @@ const Register = ({ handleSubmit }) => {
     
   }, [])
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const regex = /[\wа-я\s\-ё]/gi;
-  //   setFormValue(formValue => {
-  //       const newFormValue = {
-  //         ...formValue,
-  //         [name]: value,
-  //       }
-  //       console.log(newFormValue)
-  //       return newFormValue;
-  //   })
-  //   // console.log(formValue)
-  //   // if (regex.test(formValue.name)
-  //   //   && validator.validate(formValue.email)
-  //   //   && formValue.name !== ''
-  //   //   && formValue.password !== ''
-  //   // ) {
-  //   //   setIsButtonDisabled(false)
-  //   // } else {
-  //   //   setIsButtonDisabled(true)
-  //   // }
-  // }
-
   function handleSubmitClick(e) {
     e.preventDefault();
-    // setIsValid(isNameValid && isEmailValid && isPasswordValid) //если одно ложное вернет ложное
-    // if(isValid) {
-    //   setErrorClass('auth-page__error-message')
-    // } else {
-    //   setErrorClass('auth-page__error-message auth-page__error-message_active');  
-    // } 
-    if (true) {    /// TODO: check is input valid  
       const { name, email, password } = formValue;
       register(name, email, password)
         .then(res => {
@@ -143,16 +100,11 @@ const Register = ({ handleSubmit }) => {
           setErrorClass('auth-page__error-message auth-page__error-message_active');
           console.log(e)
         })
-    }
   }
-
-  // const handleCatchChange = useCallback(() => {
-  //   setName(count + 1);
-  // }, [count]);
 
   return (
     <AuthPage 
-      texts={pageTexts}
+      texts={REGISTER_TEXTS}
       handleSubmitClick={handleSubmitClick} 
       errorClass={errorClass}
       isButtonDisabled={isButtonDisabled}
@@ -164,7 +116,6 @@ const Register = ({ handleSubmit }) => {
         name='name' 
         title='Имя' 
         type='text'
-        setIsValid={setIsNameValid} 
         min={6}
         max={24} 
       />
@@ -174,7 +125,6 @@ const Register = ({ handleSubmit }) => {
         name='email' 
         title='E-mail' 
         type='email'
-        setIsValid={setIsEmailValid} 
         min={6}
         max={24} 
       />
@@ -184,7 +134,6 @@ const Register = ({ handleSubmit }) => {
         name='password' 
         title='Пароль' 
         type='password' 
-        setIsValid={setIsPasswordValid} 
         min={6}
         max={24}
       />
