@@ -59,7 +59,7 @@ const Movies = ({ windowWidth }) => {
 
   useEffect(() => {
     setVisibleMovies(movies.slice(0, visibleFilmsNumber))
-  }, [movies])
+  }, [movies, visibleFilmsNumber])
 
   function handleSubmit(evt) {
     evt.preventDefault();
