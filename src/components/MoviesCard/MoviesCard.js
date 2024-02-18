@@ -36,20 +36,30 @@ const MoviesCard = ({ movie, title, duration, imagePath, isSavedCards, savedImag
 
   function deleteFromFavourites() {
     setIsVisiblePreloader(true)
-    // setClickedCard(movie)
+
     if (!isSavedCards) {
-      movie._id = savedMovieList.find(film => film.movieId === movie.id)._id;
-      // movie doesn't have _id field 
+      getSavedMovies()
+        .then(savedMovies => {
+          movie._id = savedMovies.find(film => film.movieId === movie.id)._id;
+          removeFromFavourites(movie._id)
+            .then(() => {
+              setIsFavourite(false)
+              setSavedMovieList(savedMovieList.filter((item) => item._id !== movie._id));
+            })
+        })
+        .finally(() => {
+          setIsVisiblePreloader(false)
+        })
+    } else {
+      removeFromFavourites(movie._id)
+        .then(() => {
+          setIsFavourite(false)
+          setSavedMovieList(savedMovieList.filter((item) => item._id !== movie._id));
+        })
+        .finally(() => {
+          setIsVisiblePreloader(false)
+        })
     }
-    removeFromFavourites(movie._id)
-      .then(() => {
-        setIsFavourite(false)
-        setSavedMovieList(savedMovieList.filter((item) => item._id !== movie._id));
-      })
-      .finally(() => {
-        setIsVisiblePreloader(false)
-        // setClickedCard({})
-      })
   }
 
   return (
