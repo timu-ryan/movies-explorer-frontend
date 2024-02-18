@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 import { updateProfile } from '../../utils/MainApi';
 
+import { 
+  EMPTY_FIELD_ERROR_TEXT,
+  EMAIL_ERROR_TEXT,
+  NAME_ERROR_TEXT,
+  STANDART_ERROR_TEXT,
+ } from '../../utils/constants';
+
 var validator = require("email-validator");
 
 const Profile = () => {
@@ -16,7 +23,7 @@ const Profile = () => {
   });
 
   const [errorClass, setErrorClass] = useState('auth-page__error-message');
-  const [errorText, setErrorText] = useState('что-то пошло не так...');
+  const [errorText, setErrorText] = useState(STANDART_ERROR_TEXT);
   const [successClass, setSuccessClass] = useState('auth-page__success-message')
 
 
@@ -53,13 +60,13 @@ const Profile = () => {
         } else {
           setIsButtonDisabled(true)
           if (!regex.test(newFormValue.name)) {
-            setErrorText('Имя должно содержать только кириллицу, латиницу или дефис, длина должна быть больше 2')
+            setErrorText(NAME_ERROR_TEXT)
           }
           if (!validator.validate(newFormValue.email)) {
-            setErrorText('E-mail должен быть вида email@gmail.com')
+            setErrorText(EMAIL_ERROR_TEXT)
           }
           if (newFormValue.name === '' || newFormValue.password === '') {
-            setErrorText('Все поля обязательные, длина имени должна быть не менее двух символов')
+            setErrorText(EMPTY_FIELD_ERROR_TEXT)
           }
           setErrorClass('auth-page__error-message auth-page__error-message_active');
         }
@@ -81,7 +88,7 @@ const Profile = () => {
           setIsButtonDisabled(true)
         })
         .catch(err => {
-          setErrorText('что-то пошло не так...')
+          setErrorText(STANDART_ERROR_TEXT)
           setErrorClass('auth-page__error-message auth-page__error-message_active');
           console.log(err)
         })
