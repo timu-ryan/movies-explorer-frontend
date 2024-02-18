@@ -10,11 +10,11 @@ import { AppContext } from '../../contexts/AppContext';
 const Movies = ({ windowWidth }) => {
   const addButtonParams = { // >769px
     first: 12,
-    additional: 6,
+    additional: 3,
   }
   if (windowWidth < 770) {
     addButtonParams.first = 8;
-    addButtonParams.additional = 4;
+    addButtonParams.additional = 2;
   }
   if (windowWidth < 450) {
     addButtonParams.first = 5;
@@ -56,6 +56,10 @@ const Movies = ({ windowWidth }) => {
   //     // setInputValue(localStorage.getItem('inputValue'))
   //   }
   // }, [])
+
+  useEffect(() => {
+    setVisibleFilmsNumber(addButtonParams.first)
+  }, [windowWidth, addButtonParams.first])
 
   useEffect(() => {
     setVisibleMovies(movies.slice(0, visibleFilmsNumber))
